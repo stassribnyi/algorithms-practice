@@ -80,20 +80,17 @@ const validAnagram = (word1, word2) => {
 
   // iterate over second word
   for (const char of word2) {
-    // try to get character counter from frequencyCounter, if non or less then 1, return false
+    // try to get character counter from frequencyCounter, if non or less falsy (for ex: 0), return false
     // otherwise, decrement character counter
-    if (frequencyCounter[char] > 0) {
-      // decrement frequencyCounter
-      frequencyCounter[char]--;
-
-      continue;
+    if (!frequencyCounter[char]) {
+      return false;
     }
 
-    return false;
+    // decrement frequencyCounter
+    frequencyCounter[char]--;
   }
 
-  // check frequencyCounter if it has any keys greater then 0, return false, otherwise true
-  return !Object.values(frequencyCounter).some((counter) => counter);
+  return true;
 };
 
 console.log(validAnagram('', ''));

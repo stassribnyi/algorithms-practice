@@ -139,20 +139,17 @@ const same = (arr1, arr2) => {
 
   // iterate over second array
   for (const item of arr2) {
-    // check if frequencyCounter has same key as current item and
-    // counter is greater then 1, otherwise return false
-    if (frequencyCounter[item] > 0) {
-      // decrement frequencyCounter
-      frequencyCounter[item]--;
-
-      continue;
+    // check if frequencyCounter hasn't same key as current item and
+    // counter is falsy (!0) return false, otherwise continue
+    if (!frequencyCounter[item]) {
+      return false;
     }
 
-    return false;
+    // decrement frequencyCounter
+    frequencyCounter[item]--;
   }
 
-  // check frequencyCounter if it has any keys greater then 0, return false, otherwise true
-  return !Object.values(frequencyCounter).some((counter) => counter);
+  return true;
 };
 
 console.log('Check solution with valid inputs');
