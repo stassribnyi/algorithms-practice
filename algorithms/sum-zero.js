@@ -43,7 +43,10 @@
 
 // };
 
-const sumZero = (sorted) => {
+/**
+ * First implementation O(n^2)
+ */
+const sumZeroOld = (sorted) => {
   if (!Array.isArray(sorted) || sorted.length < 2) {
     return undefined;
   }
@@ -61,6 +64,42 @@ const sumZero = (sorted) => {
       if (Math.abs(first) === second) {
         return [first, second];
       }
+    }
+  }
+
+  return undefined;
+};
+
+/**
+ * Refactored implementation O(n)
+ */
+const sumZero = (sorted) => {
+  if (!Array.isArray(sorted) || sorted.length < 2) {
+    return undefined;
+  }
+
+  let left = 0;
+  let right = sorted.length - 1;
+
+  while (left < right) {
+    const first = sorted[left];
+    const firstAbs = Math.abs(first);
+    const second = sorted[right];
+
+    if (firstAbs < second) {
+      right--;
+
+      continue;
+    }
+
+    if (firstAbs > second) {
+      left++;
+
+      continue;
+    }
+
+    if (firstAbs === second) {
+      return [first, second];
     }
   }
 
