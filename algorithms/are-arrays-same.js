@@ -54,7 +54,7 @@
 // get from frequencyCounter counter value by squared item value as a key
 // if not exists, then add with counter 1, otherwise increment counter by 1
 // iterate over second array
-// check check if frequencyCounter has same value as item
+// check if frequencyCounter has same value as item
 // if not, return false, otherwise
 // decrement and check counter value, if less then 0, return false, otherwise
 // check frequencyCounter if it has any keys greater then 0, return false, otherwise true
