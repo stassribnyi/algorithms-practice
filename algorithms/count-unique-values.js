@@ -42,7 +42,10 @@
 // return counter
 // };
 
-const countUniqueValues = (sorted) => {
+/**
+ * Original solution
+ */
+const countUniqueValuesOld = (sorted) => {
   // check inputs validity, if not valid - return undefined
   if (!Array.isArray(sorted)) {
     return undefined;
@@ -72,6 +75,35 @@ const countUniqueValues = (sorted) => {
   }
 
   return uniqueCounter;
+};
+
+/**
+ * Alternative solution
+ */
+const countUniqueValues = (sorted) => {
+  // check inputs validity, if not valid - return undefined
+  if (!Array.isArray(sorted)) {
+    return undefined;
+  }
+
+  // check inputs length, if empty - return 0
+  if (!sorted.length) {
+    return 0;
+  }
+
+  let currentIndex = 0;
+
+  // iterate over array starting from the second item
+  for (let i = 1; i < sorted.length; i++) {
+    // once found unique value
+    if (sorted[currentIndex] !== sorted[i]) {
+      // increment currentIndex to match position after first unique value
+      // set it to next unique value
+      sorted[++currentIndex] = sorted[i];
+    }
+  }
+
+  return currentIndex + 1;
 };
 
 console.log(countUniqueValues([1, 1, 2, 2, 2])); // 2
