@@ -60,7 +60,10 @@
 // check frequencyCounter if it has any keys greater then 0, return false, otherwise true
 // };
 
-const same = (arr1, arr2) => {
+/**
+ * Original solution, before refactoring
+ */
+const sameOld = (arr1, arr2) => {
   // check inputs validity, if not valid - return
   if (!Array.isArray(arr1) || !Array.isArray(arr2)) {
     return false;
@@ -106,6 +109,50 @@ const same = (arr1, arr2) => {
   }
 
   return true;
+};
+
+/**
+ * Refactored solution
+ */
+const same = (arr1, arr2) => {
+  // check inputs validity, if not valid - return
+  if (!Array.isArray(arr1) || !Array.isArray(arr2)) {
+    return false;
+  }
+
+  // check inputs length, if not the same - return
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+
+  // create frequencyCounter
+  const frequencyCounter = {};
+
+  // iterate over first array
+  for (const item of arr1) {
+    // get from frequencyCounter counter value by squared item value as a key
+    // if not exists, then add with counter 1, otherwise increment counter by 1
+    const counterKey = Math.pow(item, 2);
+
+    frequencyCounter[counterKey] = (frequencyCounter[counterKey] || 0) + 1;
+  }
+
+  // iterate over second array
+  for (const item of arr2) {
+    // check if frequencyCounter has same key as current item and
+    // counter is greater then 1, otherwise return false
+    if (frequencyCounter[item] > 0) {
+      // decrement frequencyCounter
+      frequencyCounter[item]--;
+
+      continue;
+    }
+
+    return false;
+  }
+
+  // check frequencyCounter if it has any keys greater then 0, return false, otherwise true
+  return !Object.values(frequencyCounter).some((counter) => counter);
 };
 
 console.log('Check solution with valid inputs');
