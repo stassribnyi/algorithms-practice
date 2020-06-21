@@ -160,6 +160,7 @@ console.log(same([1, 4, 5], [1, 16, 25]));
 console.log(same([1, 1, 5], [1, 25, 1]));
 
 console.log(same([1, 1, 5], [1, 25, 25]));
+console.log(same([1, 5, 5], [1, 25]));
 console.log(same([1, 5], [1, 16, 25]));
 
 console.log('\nCheck solution with invalid inputs:');
