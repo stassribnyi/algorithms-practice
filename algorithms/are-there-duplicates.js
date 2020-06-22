@@ -23,18 +23,32 @@
  * Break it down
  * const areThereDuplicates = (...args => {
  *  // check if args, if not return undefined
- *  // create i for current unique value
- *  // create j for current item
- *  // lets assume first one is a unique one, then starting from second
- *  // check i
- *  // return true
+ *  // create left index
+ *  // create right index
+ *  // create store for items
+ *  // iterate to the middle of array and
+ *  // store left and right value
+ *  // if value is already in store return true
+ *  // return false
  * }
  */
 
-const areThereDuplicates = (...args) => {};
+const areThereDuplicates = (...args) => {
+  const counter = {};
 
-console.log(areThereDuplicates(1, 2, 3, 5)); // true
-console.log(areThereDuplicates(1, 1, 2)); // false
-console.log(areThereDuplicates('1', '2', '3')); // true
-console.log(areThereDuplicates(0, 0)); // false
+  for (const item of args) {
+    if (counter[item]) {
+      return true;
+    }
+
+    counter[item] = true;
+  }
+
+  return false;
+};
+
+console.log(areThereDuplicates(1, 2, 3, 5)); // false
+console.log(areThereDuplicates(1, 1, 2)); // true
+console.log(areThereDuplicates('1', '2', '3')); // false
+console.log(areThereDuplicates(0, 0)); // true
 console.log(areThereDuplicates(0, null)); // true?
