@@ -44,7 +44,10 @@
 // return currentSum
 // };
 
-const maxSubarraySum = (arr, n) => {
+/**
+ * First solution, O(n^2)
+ */
+const maxSubarraySumOld = (arr, n) => {
   if (arr.length < n) {
     return null;
   }
@@ -66,6 +69,36 @@ const maxSubarraySum = (arr, n) => {
     if (tempSum > currentSum) {
       currentSum = tempSum;
     }
+  }
+
+  return currentSum;
+};
+
+/**
+ * Refactored, O(n)
+ */
+const maxSubarraySum = (arr, n) => {
+  if (arr.length < n) {
+    return null;
+  }
+
+  // create currentSum - sum
+  let currentSum = 0;
+
+  // iterate over first n elements
+  for (let i = 0; i < n; i++) {
+    // sum first n elements
+    currentSum += arr[i];
+  }
+
+  let tempSum = currentSum;
+
+  // iterate over others elements
+  for (let i = n; i < arr.length; i++) {
+    tempSum = tempSum - arr[i - n] + arr[i];
+
+    // if bigger then currentSum assign new sum
+    currentSum = Math.max(currentSum, tempSum);
   }
 
   return currentSum;
