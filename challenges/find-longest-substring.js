@@ -36,7 +36,10 @@
  * }
  */
 
-const findLongestSubstring = (str) => {
+/**
+ * Old solution with O(n^2) complexity
+ */
+const findLongestSubstringOld = (str) => {
   // check is string not null or empty, otherwise return 0
   if (!str) {
     return 0;
@@ -58,6 +61,37 @@ const findLongestSubstring = (str) => {
       // otherwise, increment start until str[end] is uniq
       start++;
     }
+  }
+
+  return maxLength;
+};
+
+/**
+ * Refactored O(n)
+ */
+const findLongestSubstring = (str) => {
+  // check is string not null or empty, otherwise return 0
+  if (!str) {
+    return 0;
+  }
+
+  const seenChars = {};
+  let maxLength = 0;
+  let start = 0;
+
+  // start from 1 to simplify length calculation
+  for (let i = 1; i <= str.length; i++) {
+    const char = str[i - 1];
+
+    if (char in seenChars) {
+      // if character has been already spotted, then update start of uniq substr to current as first uniq in new substr
+      start = Math.max(start, seenChars[char]);
+    }
+
+    // calculate length of substr via already known start,
+    // if it's bigger than current length, override length
+    maxLength = Math.max(maxLength, i - start);
+    seenChars[char] = i;
   }
 
   return maxLength;
