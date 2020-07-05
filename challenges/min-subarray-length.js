@@ -35,15 +35,55 @@
 /**
  * Break it down
  */
-// const minSubArrayLen = (sorted) => {
-
+// const minSubArrayLen = (arr, sum) => {
+// check arr and arr.length if not an array or length is less then 1, then return 0
+// let tempSum
+// let minLen
+// let start
+// let end
+// iterate over arr
+// sum each item to tempSum and increment start, until it is bigger then sum
+// return minLen
 // };
 
-const minSubArrayLen = (arr, n) => {};
+const minSubArrayLen = (arr, sum) => {
+  // check arr and arr.length if not an array or length is less then 1, then return 0
+  if (!Array.isArray(arr) || !arr.length) {
+    return 0;
+  }
+
+  let start = 0;
+  let end = 0;
+
+  let minLen = Infinity;
+  let currentSum = 0;
+
+  // iterate over arr
+  while (start < arr.length) {
+    // sum each item to tempSum and increment start, until it is bigger then sum or index is out of range
+    if (currentSum < sum && end < arr.length) {
+      currentSum += arr[end];
+      end++;
+      // if current sum is greater or equal to the given
+      // change minLen if there is a smaller amount of items required
+      // and slide sum window
+    } else if (currentSum >= sum) {
+      minLen = minLen <= end - start ? minLen : end - start;
+      currentSum -= arr[start];
+      start++;
+      // otherwise stop
+    } else {
+      break;
+    }
+  }
+
+  return minLen === Infinity ? 0 : minLen;
+};
 
 console.log(minSubArrayLen([2, 3, 1, 2, 4, 3], 7)); // 2
 console.log(minSubArrayLen([1], 2)); // 0
 console.log(minSubArrayLen([1, 3, 20, 4, 19, 5], 3)); // 1
 console.log(minSubArrayLen([1, 2, 3], 4)); // 2
+console.log(minSubArrayLen([4, 2, 3, 1, 6], 10)); // 3
 console.log(minSubArrayLen([], 4)); // 0
 console.log(minSubArrayLen(null, 34)); // 0
